@@ -1,1 +1,30 @@
+# .github/workflows/main.yml
+name: Workflow Push e Agendado
 
+on:
+  push:
+    branches:
+      - main  # Ou o nome do seu branch principal
+  schedule:
+    - cron: '0 * * * *'  # Executa a cada hora
+
+jobs:
+  build-and-run:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout do código
+      uses: actions/checkout@v4  # Action pública para baixar o código
+
+    - name: Configurar Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'  # Pode ser outra versão, conforme seu projeto
+
+    - name: Rodar script personalizado
+      run: |
+        echo "Iniciando script personalizado..."
+        echo "Data e hora atual:"
+        date
+        echo "Listando arquivos do repositório:"
+        ls -la
